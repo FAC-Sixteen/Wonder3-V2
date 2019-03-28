@@ -1,7 +1,25 @@
 const fs = require('fs');
 const path = require('path');
+const querystring = require('query-string');
+const places = require("../places.json");
+
+// function handler (request, response) {
+
+const handleQuery = (request, response) => {
+  let filtered = [];
+  const searchString = queryString.parse(request.url)["/query"].toLowerCase();
+
+  filtered = places["cities"].filter(city => {
+    city.city.toLowerCase().includes(searchString);
+  });
+  const firstEight = filtered.slice(0, 8);
+  response.writeHead(200, {"Content-Type": "application/json"});
+  response.end(JSON.stringify(firstEight));
+};
 
 const handleHomeRoute = (request, response) => {
+  console.log(request.method);
+
   const filePath = path.join(__dirname, '..', 'public', 'index.html');
   fs.readFile(filePath, (error, file) => {
     if (error) {
@@ -16,6 +34,7 @@ const handleHomeRoute = (request, response) => {
 };
 
 const handlePublic = (request, response, url) => {
+  console.log(request.method);
   const extension = url.split('.')[1];
   const extensionType = {
     html: 'text/html',
@@ -37,9 +56,24 @@ const handlePublic = (request, response, url) => {
     }
   });
   console.log(url);
-};
+}
+// if (request.method === "POST") {
+//   var allTheData = '';
+//   request.on('data', (chunkOfData) => {
+//     allTheData += chunkOfData;
+//   });
+//   request.on('end', () => {
+//     const convertedData = querystring.parse(allTheData);
+//     console.log(convertedData);
+//     response.writeHead(302, {"Location": "/"});
+//     response.end();
+//   })
+// }
+// };
 
 module.exports = {
-  handleHomeRoute,
-  handlePublic
+  // handler
+handleHomeRoute,
+handlePublic,
+handleQuery
 };
