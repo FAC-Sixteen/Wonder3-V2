@@ -1,25 +1,27 @@
 const fs = require('fs');
 const path = require('path');
-const querystring = require('query-string');
-const places = require("../places.json");
+const queryString = require('query-string');
+const places = require('../places.json');
 
 // function handler (request, response) {
 
 const handleQuery = (request, response) => {
   let filtered = [];
-  const searchString = queryString.parse(request.url)["/query"].toLowerCase();
+  let searchString = queryString.parse(request.url)['/query'].toLowerCase();
 
-  filtered = places["cities"].filter(city => {
-    city.city.toLowerCase().includes(searchString);
+  let newArray = places['cities'].map(city1 => {
+    if (city1.city.toLowerCase().includes(searchString)) {
+      return filtered.push(city1.city.toLowerCase());
+    }
   });
+
   const firstEight = filtered.slice(0, 8);
-  response.writeHead(200, {"Content-Type": "application/json"});
+  // console.log(firstEight);
+  response.writeHead(200, { 'Content-Type': 'application/json' });
   response.end(JSON.stringify(firstEight));
 };
 
 const handleHomeRoute = (request, response) => {
-  console.log(request.method);
-
   const filePath = path.join(__dirname, '..', 'public', 'index.html');
   fs.readFile(filePath, (error, file) => {
     if (error) {
@@ -56,7 +58,7 @@ const handlePublic = (request, response, url) => {
     }
   });
   console.log(url);
-}
+};
 // if (request.method === "POST") {
 //   var allTheData = '';
 //   request.on('data', (chunkOfData) => {
@@ -73,7 +75,7 @@ const handlePublic = (request, response, url) => {
 
 module.exports = {
   // handler
-handleHomeRoute,
-handlePublic,
-handleQuery
+  handleHomeRoute,
+  handlePublic,
+  handleQuery
 };
