@@ -1,0 +1,27 @@
+{
+  "name": "wonder3-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC-Sixteen/Wonder3-V2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAC-Sixteen/Wonder3-V2/issues"
+  },
+  "homepage": "https://github.com/FAC-Sixteen/Wonder3-V2#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "tape": "^4.10.1"
+  },
+  "dependencies": {
+    "match-sorter": "^2.3.0"
+  }
+}
