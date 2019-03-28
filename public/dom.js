@@ -1,26 +1,29 @@
-document.getElementById("citySearch").addEventListener("keyup", (event) => {
-    const inputValue = document.getElementById("citySearch").value;
-    cityCall(inputValue);
+document.getElementById('citySearch').addEventListener('keyup', () => {
+  const inputValue = document.getElementById('citySearch').value;
+  cityCall(inputValue);
 });
 
-var cityCall = (value) => {
+const cityCall = value => {
   const cityRequest = new XMLHttpRequest();
-  const cityURL = "/query=" + value;
+  // console.log('city request', cityRequest);
+  const cityURL = '/query=' + value;
+  // console.log('this is city url: ', cityURL);
   cityRequest.onreadystatechange = () => {
-    if(this.readyState == 4 && this.status == 200) {
-      const datalistEntries = document.getElementById("cityList");
+    if (cityRequest.readyState == 4 && cityRequest.status == 200) {
+      const datalistEntries = document.getElementById('cityList');
       while (datalistEntries.firstChild) {
         datalistEntries.removeChild(datalistEntries.firstChild);
       }
       const cities = JSON.parse(cityRequest.responseText);
+      console.log(cities);
       const x = document.getElementById('cityList');
       cities.forEach(element => {
-        const newOption = document.createElement("OPTION");
-        newOption.setAttribute("value", element.city);
+        const newOption = document.createElement('OPTION');
+        newOption.setAttribute('value', element);
         x.appendChild(newOption);
-      })
+      });
     }
-  }
-  cityRequest.open("GET", cityURL, true);
+  };
+  cityRequest.open('GET', cityURL, true);
   cityRequest.send();
-}
+};
