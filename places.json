@@ -1,4 +1,5 @@
-[
+{
+  "cities": [
   {
     "country": "Afghanistan",
     "city": "Kabul"
@@ -968,3 +969,4 @@
     "city": "Harare"
   }
 ]
+}

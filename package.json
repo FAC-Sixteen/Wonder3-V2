@@ -22,6 +22,9 @@
     "tape": "^4.10.1"
   },
   "dependencies": {
-    "match-sorter": "^2.3.0"
+    "body-parser": "^1.18.3",
+    "jsdom": "^14.0.0",
+    "match-sorter": "^2.3.0",
+    "query-string": "^6.4.2"
   }
 }
