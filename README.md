@@ -1,4 +1,4 @@
-# City Search Autocomplete
+# Country Search Autocomplete
 
 ## The Wonder3 Team:
 * Ryan (@RymaTech)
