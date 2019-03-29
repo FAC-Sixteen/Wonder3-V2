@@ -6,6 +6,8 @@ const router = (request, response) => {
     handler.handleHomeRoute(request, response);
   } else if (url.includes('query')) {
     handler.handleQuery(request, response);
+  } else if (url.includes('city')) {
+    handler.handleCity(request, response);
   } else if (url.indexOf('public') !== -1) {
     handler.handlePublic(request, response, url);
   } else {
