@@ -42,7 +42,8 @@ const handlePublic = (request, response, url) => {
     html: 'text/html',
     css: 'text/css',
     js: 'application/javascript',
-    ico: 'image/x-icon'
+    ico: 'image/x-icon',
+    png: 'image/png'
   };
 
   // Replaced err with error in line 30
