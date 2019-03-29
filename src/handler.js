@@ -3,23 +3,32 @@ const path = require('path');
 const queryString = require('query-string');
 const places = require('../places.json');
 
-// function handler (request, response) {
-
 const handleQuery = (request, response) => {
   let filtered = [];
   let searchString = queryString.parse(request.url)['/query'].toLowerCase();
 
   let newArray = places['cities'].map(city1 => {
-    if (city1.city.toLowerCase().includes(searchString)) {
-      return filtered.push(city1.city.toLowerCase());
+    if (city1.country.toLowerCase().includes(searchString)) {
+      return filtered.push(city1.country.toLowerCase());
     }
   });
 
   const firstEight = filtered.slice(0, 8);
-  // console.log(firstEight);
   response.writeHead(200, { 'Content-Type': 'application/json' });
   response.end(JSON.stringify(firstEight));
 };
+
+const handleCity = (request, response) => {
+  let filtered = [];
+  let searchString = queryString.parse(request.url)['/city'].toLowerCase();
+  let newArray = places['cities'].map(city1 => {
+    if (city1.country.toLowerCase().includes(searchString)) {
+      return filtered.push(city1.city.toLowerCase());
+    }
+  });
+  response.writeHead(200, { 'Content-Type': 'application/json' });
+  response.end(JSON.stringify(filtered));
+}
 
 const handleHomeRoute = (request, response) => {
   const filePath = path.join(__dirname, '..', 'public', 'index.html');
@@ -46,7 +55,6 @@ const handlePublic = (request, response, url) => {
     png: 'image/png'
   };
 
-  // Replaced err with error in line 30
   const filePath = path.join(__dirname, '..', url);
   fs.readFile(filePath, (error, file) => {
     if (error) {
@@ -60,23 +68,11 @@ const handlePublic = (request, response, url) => {
   });
   console.log(url);
 };
-// if (request.method === "POST") {
-//   var allTheData = '';
-//   request.on('data', (chunkOfData) => {
-//     allTheData += chunkOfData;
-//   });
-//   request.on('end', () => {
-//     const convertedData = querystring.parse(allTheData);
-//     console.log(convertedData);
-//     response.writeHead(302, {"Location": "/"});
-//     response.end();
-//   })
-// }
-// };
+
 
 module.exports = {
-  // handler
   handleHomeRoute,
   handlePublic,
-  handleQuery
+  handleQuery,
+  handleCity
 };
